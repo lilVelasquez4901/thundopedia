@@ -1,0 +1,25 @@
+{
+  "name": "thundopedia",
+  "version": "1.0.1",
+  "description": "R1: Users should be able to create, read, update and delete their >own< tanks, while having access to in game tanks. R2: Field to identify the owner of the record will be identified by the field: engineerName R3: Roles shall each have their own roles, tankers to create the records, reviewers to submit tanks from approved users, admins to moderate the users and delete tanks with the inaccurate/improper fields R4: Reviewers can approve tanks R5: Admins can blacklist users Tech. Decision: Database Risk: Difficulty will lay most likely in giving the admins their power to blacklist certain tankers Backup: Should things go beyond my grasp, my backup plan will be to set approval to be required from Reviewers and Admins and to give Reviewer the ability to update edit any records to give a unique action from tankers and admins",
+  "main": ".env.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Esaih_Velasquez <evelas562@west-mec.org> (https://github.com/lilVelasquez4901)",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
