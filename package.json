@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "Esaih_Velasquez <evelas562@west-mec.org> (https://github.com/lilVelasquez4901)",

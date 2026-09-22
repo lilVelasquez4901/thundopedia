@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const {mongoUri} = require('./env');
-const { listen } = require('node:quic');
 
 let listenersActive = false
 
@@ -34,3 +33,14 @@ async function connectDatabase(uri = mongoUri){
         process.exit(1)
     }
 }
+
+
+async function disconnectDatabase(){
+    await mongoose.connection.close()
+}
+
+function isConnected(){
+    return mongoose.connection.readyState === 1
+}
+
+module.exports = {connectDatabase, disconnectDatabase, isConnected}
