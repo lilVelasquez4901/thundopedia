@@ -1,3 +1,4 @@
+//Database containing the schema, the 'model' (Tank) and exporting it to use with other files
 const mongoose = require('mongoose')
 
 const tankSchema = new mongoose.Schema({
@@ -10,7 +11,7 @@ const tankSchema = new mongoose.Schema({
     isCar:{type:Boolean,default:false},
     id:{type:Number,required:true},
     creator:{type:String, required:true}
-},{timestamps:true});
+},{timestamps:true},{strict:true});
 const Tank = mongoose.model("Tank",tankSchema)
 // let tank = [
 //     {id: 1,

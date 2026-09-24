@@ -1,8 +1,8 @@
 const Tank = require('../models/resource.model.js');
-let nextId = 2;
+let nextId = 2; //Important nextId stays here, as these are functions that use it, rather than in resource.routes.js where they are called
 //Health Checker
 async function healthCheck(req,res){
-    res.status(200).json({status:'ok'})
+    res.status(200).json({ok:true, uptime:Math.round(process.uptime())})
 };
 // //GET for all current tank records
 async function getAll(req,res){

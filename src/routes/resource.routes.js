@@ -7,7 +7,7 @@ router.get('/health', healthCheck);
 router.get('/tanks', getAll);
 router.get('/tanks/:id', getOne);
 router.post('/tanks', createVehicle);
-router.put('/tanks/:id', modifyVehicle)
+router.put('/tanks/:id', modifyVehicle) //Should be using replaceBlueprint but it doesn't function as of 9/24/26
 router.patch('/tanks/:id', modifyVehicle);
 router.delete('/tanks/:id', destroyAsset);
 

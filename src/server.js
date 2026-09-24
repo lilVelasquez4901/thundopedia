@@ -1,6 +1,6 @@
 const {connectDatabase, disconnectDatabase} = require('./config/database.js');
 const {port} = require('./config/env.js')
-const app = require('./app.js')
+const app = require('./app.js')()
 
 async function start() {
     await connectDatabase()
