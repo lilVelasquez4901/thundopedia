@@ -1,14 +1,19 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const {healthCheck, getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset} = require('../controllers/resource.controller.js');
+const resControl = require('../controllers/resource.controller.js');
+const resService = require('../services/resource.service.js')
 
-router.get('/health', healthCheck);
-router.get('/tanks', getAll);
-router.get('/tanks/:id', getOne);
-router.post('/tanks', createVehicle);
-router.put('/tanks/:id', modifyVehicle) //Should be using replaceBlueprint but it doesn't function as of 9/24/26
-router.patch('/tanks/:id', modifyVehicle);
-router.delete('/tanks/:id', destroyAsset);
+//Controller Functions
+router.get('/health', resControl.healthCheck);
+router.get('/tanks', resControl.getAll);
+router.get('/tanks/:id', resControl.getOne);
+router.post('/tanks', resControl.createVehicle);
+router.put('/tanks/:id', resControl.replaceBlueprint)
+router.patch('/tanks/:id', resControl.modifyVehicle);
+router.delete('/tanks/:id', resControl.destroyAsset);
+
+//Service Functions
+router.get('/tanks/make/:make', resService.pickByMake)
 
 module.exports = router
