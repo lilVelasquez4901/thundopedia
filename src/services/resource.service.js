@@ -6,52 +6,52 @@ const nations = ["Germany", "USSR", "UK", "Israel", "France", "USA", "Japan", "C
 const crewCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 async function pickByMake(make){
-    if (!mades.includes(make)){
+    const match = mades.find(n => n.toLowerCase() === make?.toLowerCase());
+    if (!match){
         const err = new Error(`Invalid Make: ${make} is not a class.`)
         err.status = 400;
         err.code = 'BAD_REQUEST';
         throw err;
     }
-    return Tank.find({make})
+    return Tank.find({make: match})
 };
 async function pickByRank(rank){
-    if(!rankers.includes(rank)){
+    const match = rankers.find(n => n.toLowerCase() === rank?.toLowerCase());
+    if(!match){
         const err = new Error(`Invalid Rank: ${rank} is not a valid Ground Vehicle Rank.`)
         err.status = 400;
         err.code = 'BAD_REQUEST';
         throw err;
     }
-    return Tank.find({rank})
+    return Tank.find({rank: match})
 }
 async function pickByCrew(crew){
-    if(!crewCount.includes(crew)){
+    const crewNum = Number(crew)
+    if(!crewCount.includes(crewNum)){
         const err = new Error(`Invalid Crew: no tank in game has a crew count of ${crew}.`)
         err.status = 400;
         err.code = 'BAD_REQUEST';
         throw err;
     }
-    return Tank.find({crew_number: crew})
+    return Tank.find({crew_number: crewNum})
 }
 async function pickByNation(country){
-    if(!nations.includes(country)){
+    const match = nations.find(n => n.toLowerCase() === country?.toLowerCase());
+    if(!match){
         const err = new Error(`Invalid Nation: ${country} is not a tech tree.`)
         err.status = 400;
         err.code = 'BAD_REQUEST';
         throw err;
     }
-    return Tank.find({nation: country})
+    return Tank.find({nation: match})
 }
 async function filterByCars(car){
-    if(!car){
-        return Tank.find({isCar: false})
-    }
-    return Tank.find({car})
+    const carBool = car === 'true';
+    return Tank.find({ isCar: carBool})
 }
 async function filterByCustom(custom){
-    if(!custom){
-        return Tank.find({custom: false})
-    }
-    return Tank.find({custom})
+    const isCustom = custom === 'true';
+    return Tank.find({ custom: isCustom });
 }
 async function filterByCreator(creator){
     if(!creator){

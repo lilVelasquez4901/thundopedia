@@ -66,6 +66,7 @@ async function destroyAsset (req,res,next){
 };
 
 //Functions below shall be the service functions, combine these with the resService functions in routes.
+//---------------------------- NOTE: When searching in localhost string, space make (Light Tank, Medium Tank, etc), make a SPACE via %20 not an ACTUAL space
 async function findMaker(req,res,next){
     try{
         const maker = req.params.make
@@ -75,5 +76,57 @@ async function findMaker(req,res,next){
         next(error)
     }
 };
-
-module.exports = {healthCheck, getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset, findMaker}
+async function findRank(req,res,next){
+    try {
+        const ranker = req.params.rank
+        const vehicles = await resService.pickByRank(ranker)
+        res.status(200).json(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+async function findCrew(req,res,next){
+    try {
+        const crew = req.params.crew_number
+        const vehicles = await resService.pickByCrew(crew)
+        res.status(200).json(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+async function findCustom (req,res,next){
+    try {
+        const bool = req.params.custom
+        const vehicles = await resService.filterByCustom(bool)
+        res.status(200).json(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+async function findNation(req,res,next){
+    try {
+        const country = req.params.nation
+        const vehicles = await resService.pickByNation(country)
+        res.status(200).json(vehicles)}
+       catch (error) {
+        next(error)
+    }} 
+async function findCars (req,res,next){
+    try {
+        const bool = req.params.isCar
+        const cars = await resService.filterByCars(bool)
+        res.status(200).json(cars)
+    } catch (error) {
+        next(error)
+    }
+}
+async function findCreator (req,res,next){
+    try {
+        const thePerson = req.params.creator
+        const vehicles = await resService.filterByCreator(thePerson)
+        res.status(200).json(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports = {healthCheck, getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}
