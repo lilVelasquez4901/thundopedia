@@ -1,0 +1,293 @@
+{
+  "info": {
+    "_postman_id": "b29306dc-39b2-42d7-adbb-7011cf4befa8",
+    "name": "thundopedia API - v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57106562",
+    "_collection_link": "https://go.postman.co/collection/57106562-b29306dc-39b2-42d7-adbb-7011cf4befa8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json(); pm.collectionVariables.set(\"resourceId\", body.data.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Resources - Happy Path",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tanks/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"creator\":\"amSmartie\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks/52",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "52"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks/53",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "53"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Resources - Error Cases",
+      "item": [
+        {
+          "name": "Nonexistant Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks/65",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "65"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Malformed Id",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tanks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Missing Field",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks/55",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "55"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Value",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":\"Ryoiki Tenkai\",\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tanks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unknown Route",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tanks/banana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tanks",
+                "banana"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+## Context
+    During the making of this database, many ideas came to mind. Such as what fields to allow, due to the fact I'm in a sense recording the statistics of a tank and adding things that would be much easier to check ingame. I considered adding a "weakness" property, "ammunition" property, etc. But eventually, it'd become too much and be redundant to have all of these properties.
+## Decision
+    Choosing not to go through with adding all these properties that could serve some niche purpose that maybe 1 out of every 1000 people would need, I decided to reduce the properties to the easiest methods to account for a specific record. Make, Creator, id, Nation, Crew Number, cars, ranks, and custom status (unique to only the user made tanks, should default to false if it's a tank in game)
+## Consequences
+## Alternatives Considered
+    I am considering creating a separate api for such things which would likely be an image based database compared to the pure json database I have done for this api. As this is already niche enough that trying to shovel in more groups to utilize it feels like it'd be trying to close the door on an overflowing oven of food. There's just simply too little space.
