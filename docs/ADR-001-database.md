@@ -3,5 +3,6 @@
 ## Decision
     Choosing not to go through with adding all these properties that could serve some niche purpose that maybe 1 out of every 1000 people would need, I decided to reduce the properties to the easiest methods to account for a specific record. Make, Creator, id, Nation, Crew Number, cars, ranks, and custom status (unique to only the user made tanks, should default to false if it's a tank in game)
 ## Consequences
+    As a result however, I cannot utilize my database for the specifically **annoying** parts of the game, volumetrics or just the armor system of it. However, choosing not to overload the database with unnecessary information does seem good for the mind, readability, and convenience of others.
 ## Alternatives Considered
     I am considering creating a separate api for such things which would likely be an image based database compared to the pure json database I have done for this api. As this is already niche enough that trying to shovel in more groups to utilize it feels like it'd be trying to close the door on an overflowing oven of food. There's just simply too little space.
