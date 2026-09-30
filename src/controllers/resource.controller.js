@@ -8,7 +8,9 @@ async function healthCheck(req,res){
 // //GET for all current tank records
 async function getAll(req,res,next){
     try{
-    const tanks = await Tank.find({})
+    const page = Number(req.query.page) || 1;
+    const pageSize = Number(req.query.pageSize) || 25;
+    const tanks = await resService.getAllVehicles(page, pageSize)
     res.status(200).json(tanks)
     } catch (error){
         next(error)
@@ -69,8 +71,10 @@ async function destroyAsset (req,res,next){
 //---------------------------- NOTE: When searching in localhost string, space make (Light Tank, Medium Tank, etc), make a SPACE via %20 not an ACTUAL space
 async function findMaker(req,res,next){
     try{
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const maker = req.params.make
-        const vehicles = await resService.pickByMake(maker)
+        const vehicles = await resService.pickByMake(maker, page, pageSize)
         res.status(200).json(vehicles)        
     }catch(error){
         next(error)
@@ -78,8 +82,10 @@ async function findMaker(req,res,next){
 };
 async function findRank(req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const ranker = req.params.rank
-        const vehicles = await resService.pickByRank(ranker)
+        const vehicles = await resService.pickByRank(ranker, page, pageSize)
         res.status(200).json(vehicles)
     } catch (error) {
         next(error)
@@ -87,8 +93,10 @@ async function findRank(req,res,next){
 }
 async function findCrew(req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const crew = req.params.crew_number
-        const vehicles = await resService.pickByCrew(crew)
+        const vehicles = await resService.pickByCrew(crew, page, pageSize)
         res.status(200).json(vehicles)
     } catch (error) {
         next(error)
@@ -96,8 +104,10 @@ async function findCrew(req,res,next){
 }
 async function findCustom (req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const bool = req.params.custom
-        const vehicles = await resService.filterByCustom(bool)
+        const vehicles = await resService.filterByCustom(bool, page, pageSize)
         res.status(200).json(vehicles)
     } catch (error) {
         next(error)
@@ -105,16 +115,20 @@ async function findCustom (req,res,next){
 }
 async function findNation(req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const country = req.params.nation
-        const vehicles = await resService.pickByNation(country)
+        const vehicles = await resService.pickByNation(country, page, pageSize)
         res.status(200).json(vehicles)}
        catch (error) {
         next(error)
     }} 
 async function findCars (req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const bool = req.params.isCar
-        const cars = await resService.filterByCars(bool)
+        const cars = await resService.filterByCars(bool, page, pageSize)
         res.status(200).json(cars)
     } catch (error) {
         next(error)
@@ -122,8 +136,10 @@ async function findCars (req,res,next){
 }
 async function findCreator (req,res,next){
     try {
+        const page = Number(req.query.page) || 1;
+        const pageSize = Number(req.query.pageSize) || 25;
         const thePerson = req.params.creator
-        const vehicles = await resService.filterByCreator(thePerson)
+        const vehicles = await resService.filterByCreator(thePerson, page, pageSize)
         res.status(200).json(vehicles)
     } catch (error) {
         next(error)

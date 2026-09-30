@@ -15,9 +15,9 @@
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "dotenv": "^18.0.2",
+    "dotenv": "^18.0.4",
     "express": "^5.2.1",
-    "mongoose": "^9.10.1"
+    "mongoose": "^9.10.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
