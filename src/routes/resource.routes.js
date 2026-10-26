@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const resControl = require('../controllers/resource.controller.js');
-const resService = require('../services/resource.service.js')
 const {requireAuth} = require('../middleware/auth.js')
 
 //Controller Functions
@@ -12,14 +11,13 @@ const {requireAuth} = require('../middleware/auth.js')
 // router.put('/tanks/:id', resControl.replaceBlueprint)
 // router.patch('/tanks/:id', resControl.modifyVehicle);
 // router.delete('/tanks/:id', resControl.destroyAsset);
-router.get('/health', resControl.healthCheck)
 router
-    .route('/tanks')
+    .route('/')
         .get(resControl.getAll)
         .post(requireAuth, resControl.createVehicle)
 
 router
-    .route('/tanks/:id')
+    .route('/:id')
     .get(resControl.getOne)
     .put(requireAuth, resControl.replaceBlueprint)
     .patch(requireAuth, resControl.modifyVehicle)
@@ -33,14 +31,14 @@ router
 // router.get('/tanks/custom/:custom', resControl.findCustom)
 // router.get('/tanks/nation/:nation', resControl.findNation)
 // router.get('/tanks/cars/:isCar', resControl.findCars)
-// router.get('/tanks/creator/:creator', resControl.findCreator) //Should find a way to account for creators who do not exist
+// router.get('/tanks/creator/:creator', resControl.findCreator)
 router
-        .get('tanks/make/:make', resControl.findMaker)
-        .get('tanks/rank/:rank', resControl.findRank)
-        .get('tanks/crew/:crew_number', resControl.findCrew)
-        .get('tanks/custom/:custom', resControl.findCustom)
-        .get('tanks/nation/:nation', resControl.findNation)
-        .get('tanks/cars/:isCar', resControl.findCars)
-        .get('tanks/creator/:creator', resControl.findCreator)
+        .get('/make/:make', resControl.findMaker)
+        .get('/rank/:rank', resControl.findRank)
+        .get('/crew/:crew_number', resControl.findCrew)
+        .get('/custom/:custom', resControl.findCustom)
+        .get('/nation/:nation', resControl.findNation)
+        .get('/cars/:isCar', resControl.findCars)
+        .get('/creator/:creator', resControl.findCreator) 
 
 module.exports = router

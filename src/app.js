@@ -1,23 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const errorHandler = require('./middleware/errorHandler.js')
+const healthRoutes = require('./routes/health.routes.js')
 const notFound = require('./middleware/notFound.js')
 const reqLogger = require('./middleware/requestLogger.js')
+const {API_PREFIX} = require('./config/constants.js')
 
 //Mounting the routers
-const toHere = require('./routes/resource.routes.js')
+const routes = require('./routes/')
 const app = express();
 
-function createApp(){
-    app.use(express.json({limit:"10kb"}));
-    app.use(reqLogger)
-    app.use('/api/v1', toHere)
-    // app.get("/boom",()=>{throw new Error('Yes Rico. Kaboom.')})
-    app.use(notFound)
-    app.use(errorHandler)
+app.use(reqLogger);
+app.use(express.json({limit:"10kb"}));
+app.use(express.urlencoded({extended:true, limit:'10kb'}))
+app.use('/health', healthRoutes)
+app.use(API_PREFIX, routes);
+app.use(notFound)
+app.use(errorHandler)
 
-    return app
-};
-
-
-module.exports = createApp
+module.exports = app

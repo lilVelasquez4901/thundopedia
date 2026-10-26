@@ -29,7 +29,7 @@ const tankSchema = new mongoose.Schema({
     },
     make:{
         type:String,
-         enum: ['Light Tank', 'Medium Tank', 'Heavy Tank', 'Tank Destroyer', 'SPAA']
+         enum: ['Light_Tank', 'Medium_Tank', 'Heavy_Tank', 'Tank_Destroyer', 'SPAA']
         },
     isCar:{
         type:Boolean,
@@ -66,7 +66,7 @@ const Tank = mongoose.model("Tank",tankSchema)
 //     crew_number:3,
 //     nation:'USA',
 //     Rank:'I',
-//     make:'Light Tank',
+//     make:'Light_Tank',
 //     isCar:false
 //     }
 // ]

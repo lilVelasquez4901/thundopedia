@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {jwtSecret, jwtExpiresIn} = require('../config/env')
+const ApiError = require('../utils/ApiError')
 //Validates and signs the token
 function signToken(user){
     const payload = {sub: String(user_.id), role: user.role}

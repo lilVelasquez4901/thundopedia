@@ -1,10 +1,7 @@
 const Tank = require('../models/resource.model.js');
 const resService = require('../services/resource.service.js')
 let nextId = 2; //Important nextId stays here, as these are functions that use it, rather than in resource.routes.js where they are called, but it will mess up on id creations as it resets back to 2 after server resets, should fix that
-//Health Checker
-async function healthCheck(req,res){
-    res.status(200).json({ok:true, uptime:Math.round(process.uptime())})
-};
+
 // //GET for all current tank records
 async function getAll(req,res,next){
     try{
@@ -68,7 +65,6 @@ async function destroyAsset (req,res,next){
 };
 
 //Functions below shall be the service functions, combine these with the resService functions in routes.
-//---------------------------- NOTE: When searching in localhost string, space make (Light Tank, Medium Tank, etc), make a SPACE via %20 not an ACTUAL space
 async function findMaker(req,res,next){
     try{
         const page = Number(req.query.page) || 1;
@@ -145,4 +141,4 @@ async function findCreator (req,res,next){
         next(error)
     }
 }
-module.exports = {healthCheck, getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}
+module.exports = {getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}
