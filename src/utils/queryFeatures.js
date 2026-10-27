@@ -1,4 +1,5 @@
-const {PAGINATION, SORTABLE_FIELDS, DEFAULT_SORT, PLANT_STATUSES, NATIONS, RANKS, MAKES} = require('../config/constants')
+'use strict'
+const {PAGINATION, SORTABLE_FIELDS, DEFAULT_SORT, NATIONS, RANKS, MAKES, CREW_COUNT} = require('../config/constants')
 const ApiError = require('./ApiError')
 //Opted to utilize this pagination over my custom built one, more compact and easier to read
 function parsePagination(query={}){
@@ -80,6 +81,15 @@ function buildTankFilter(query={}){
         }
         filter.make = query.make
 
+    }
+    if(query.crew_number){
+
+        if(!CREW_COUNT.includes(query.crew_number)){
+
+            throw ApiError.badrequest(`'${query.crew_number}' is not a supported location. Valid: ${CREW_COUNT.join(', ')}`)
+
+        }
+        filter.crew_number = query.crew_number
     }
     if(query.q){
 

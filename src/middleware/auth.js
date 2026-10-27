@@ -1,3 +1,4 @@
+'use strict'
 const asyncHandler = require('../utils/asyncHandler');
 const ApiError = require('../utils/ApiError');
 const {verifyToken} = require('../utils/jwt');

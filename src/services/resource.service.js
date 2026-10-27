@@ -1,3 +1,4 @@
+'use strict'
 //These are your 'business rules,' the functions.
 const Tank = require('../models/resource.model.js');
 const mades = ["Light_Tank", "Medium_Tank", "Heavy_Tank", "Tank_Destroyer", "SPAA"]

@@ -1,11 +1,15 @@
+'use strict'
 //Database containing the schema, the 'model' (Tank) and exporting it to use with other files
 const mongoose = require('mongoose')
+const {PAGINATION, SORTABLE_FIELDS, API_PREFIX, RANKS, MAKES, NATIONS, CREW_COUNT} = require('../config/constants')
 
 const tankSchema = new mongoose.Schema({
     //separating fields for readability
     name:{
         type:String,
-        required:true
+        required:[true, 'Tank must be named'],
+        trim:true,
+        maxLength:[60, 'Name may not exceed 60 characters']
     },
     custom:{
         type:Boolean,
@@ -15,21 +19,22 @@ const tankSchema = new mongoose.Schema({
     crew_number:{
         type:Number,
         required:true,
-        enum:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        enum:{values: CREW_COUNT, message:'{VALUE} is not a valid crew number.'},
+        default:4
     },
     nation:{
         type:String,
         required:true,
-        enum:['Italy', 'France', 'Germany', 'China', 'Japan', 'Sweden', 'Israel', 'UK', 'USSR', 'USA']
+        enum:{values: NATIONS, message:'{VALUE} is not a valid nation.'}
     },
     rank:{
         type:String,
         default:'I',
-        enum:['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']
+        enum:{values: RANKS, message:'{VALUE} is not a valid rank.'}
     },
     make:{
         type:String,
-         enum: ['Light_Tank', 'Medium_Tank', 'Heavy_Tank', 'Tank_Destroyer', 'SPAA']
+         enum: {values: MAKES, message:'{VALUE} is not a valid make.'}
         },
     isCar:{
         type:Boolean,
@@ -40,9 +45,11 @@ const tankSchema = new mongoose.Schema({
         required:true
     },
     creator:{
-        type:String,
-        required:true
-    }
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        default:null,
+        index:true
+    },
     },{
         timestamps:true,
         toJSON:{
@@ -58,17 +65,7 @@ const tankSchema = new mongoose.Schema({
         strict:true
     }
 );
-const Tank = mongoose.model("Tank",tankSchema)
-// let tank = [
-//     {id: 1,
-//     nickname: 'M22 Locust',
-//     custom:false,
-//     crew_number:3,
-//     nation:'USA',
-//     Rank:'I',
-//     make:'Light_Tank',
-//     isCar:false
-//     }
-// ]
+tankSchema.index({nation:1, make:1})
+tankSchema.index({createdAt: -1})
 
-module.exports = Tank
+module.exports = mongoose.model('Tank', tankSchema)

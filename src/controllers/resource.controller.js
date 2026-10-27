@@ -1,68 +1,62 @@
+'use strict'
 const Tank = require('../models/resource.model.js');
-const resService = require('../services/resource.service.js')
-let nextId = 2; //Important nextId stays here, as these are functions that use it, rather than in resource.routes.js where they are called, but it will mess up on id creations as it resets back to 2 after server resets, should fix that
+const asyncHandler = require('../utils/asyncHandler.js');
+const ApiError = require('../utils/ApiError.js');
+const {sendSuccess, sendCreated, sendNoContent} = require('../utils/apiResponse.js')
+const {parsePagination, parseSort, buildMeta, buildTankFilter} = require('../utils/queryFeatures');
+const resService = require('../services/resource.service.js');
+const WRITABLE_FIELDS = ['name', 'make', 'nation', 'crew_count', 'rank']
+
+function pickWritableFields(body={}){
+    const payload = {}
+    for (const field of WRITABLE_FIELDS){
+        if(body[field] !== undefined) payload[field] = body[field]
+    }
+    return payload
+}
 
 // //GET for all current tank records
-async function getAll(req,res,next){
-    try{
-    const page = Number(req.query.page) || 1;
-    const pageSize = Number(req.query.pageSize) || 25;
-    const tanks = await resService.getAllVehicles(page, pageSize)
-    res.status(200).json(tanks)
-    } catch (error){
-        next(error)
-    }
-    
-};
+const getAll = asyncHandler(async(req,res)=>{
+    const filter = buildTankFilter(req.query)
+    const sort = parseSort(req.query.sort)
+    const {page, limit, skip} = parsePagination(req.query)
+    const [tank, total] = await Promise.all([
+        Tank.find(filter).sort(sort).skip(skip).limit(limit),
+        Tank.countDocuments(filter)
+    ])
+   sendSuccess(res,tank, 200, {meta: buildMeta({page, limit, total})})
+})
 // //GET for specific tank record
-async function getOne (req,res,next){
-    try {
-        const vehicle = await Tank.findOne({id: Number(req.params.id)});
-        if(!vehicle) return res.status(404).json({error:"Tank not found."})
-        res.status(200).json(vehicle);
-    } catch (error) {
-        next(error)
-    }
-};
+const getOne = asyncHandler(async(req,res)=>{
+    const tank = await Tank.findById(req.params.id)
+    if(!tank) throw ApiError.notFound('Tank not Found')
+    sendSuccess(res, tank)
+})
+
 // //POSTing a new, valid tank record
-async function createVehicle (req,res,next){
-    try {
-        const vehicle = await Tank.create({id:Number(nextId++),...req.body})
-        res.status(201).json(vehicle)
-    } catch (error) {
-        next(error)
-    }
-};
-// //PUTting a new tank record in place of an uploaded one
-async function replaceBlueprint (req,res,next){
-    try {
-        const vehicle = await Tank.findOneAndReplace({id:Number(req.params.id)}, req.body, {new:true})
-        if(!vehicle) return res.status(404).json({error:"Tank not found"})
-        res.status(200).json(vehicle);
-    } catch (error) {
-        next(error)
-    }
-};
-// //PATCHing an already uploaded tank record with new information
-async function modifyVehicle (req,res,next){
-    try {
-        const vehicle = await Tank.findOneAndUpdate({id:Number(req.params.id)}, req.body,{new:true});
-        if (!vehicle) return res.status(404).json({error:'Tank not found'})
-        res.status(200).json(vehicle)
-    } catch (error) {
-        next(error)
-    }
-};
+const createVehicle = asyncHandler(async(req,res)=>{
+    const tank = await Tank.create({
+        ...pickWritableFields(req.body),
+        ownerId: req.user._id
+    })
+    sendCreated(res, tank)
+})
+
+// //PUTting and PATCH a new tank record in place of an uploaded one
+const replaceBlueprint = asyncHandler(async(req,res)=>{
+    const tank = await Tank.findByIdAndUpdate(req.params.id, req.body, {
+        new:true, runValidators:true
+    })
+    if(!tank) throw ApiError.notFound('Tank not Found')
+    sendSuccess(res, tank)
+})
+
 // //DELETEing an uploaded tank recorded
-async function destroyAsset (req,res,next){
-    try {
-        const vehicle = await Tank.findOneAndDelete({id:Number(req.params.id)});
-        if(!vehicle) return res.status(404).json({error:'Tank not found.'})
-        res.status(204).send()
-    } catch (error) {
-        next(error)
-    }
-};
+const destroyAsset = asyncHandler(async(req,res)=>{
+    const ttank = await Tank.findByIdAndDelete(req.params.id)
+    if(!tank) throw ApiError.notFound('Tank not Found')
+    sendNoContent(res);
+})
 
 //Functions below shall be the service functions, combine these with the resService functions in routes.
 async function findMaker(req,res,next){
@@ -141,4 +135,4 @@ async function findCreator (req,res,next){
         next(error)
     }
 }
-module.exports = {getAll, getOne, createVehicle, replaceBlueprint, modifyVehicle, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}
+module.exports = {getAll, getOne, createVehicle, replaceBlueprint, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}

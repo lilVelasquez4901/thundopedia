@@ -1,3 +1,4 @@
+'use strict'
 const asyncHandler = require('../utils/asyncHandler')
 const {sendSuccess, sendCreated} = require('../utils/apiResponse')
 const ApiError = require('../utils/ApiError')
@@ -6,8 +7,8 @@ const User = require('../models/user.model')
 
 const register = asyncHandler(async(req,res)=>{
     const {name, email, password} = req.body ?? {}
-    const tanker = await User.create({name, email, password})
-    sendCreated(res, {user, token: signToken(tanker)})
+    const user = await User.create({name, email, password})
+    sendCreated(res, {user, token: signToken(user)})
 })
 
 const login = asyncHandler(async(req,res)=>{
@@ -15,11 +16,11 @@ const login = asyncHandler(async(req,res)=>{
 
     if(!email || !password)
         throw ApiError.badRequest('email and password are both required')
-    const tanker = await User.findOne({email: String(email).toLowerCase().trim()}).select(`+password`)
-    if(!tanker || !(await tanker.comparePassword(password))){
+    const user = await User.findOne({email: String(email).toLowerCase().trim()}).select(`+password`)
+    if(!user || !(await user.comparePassword(password))){
         throw ApiError.unauthorized('Invalid email or password')
     }
-    sendSuccess(res, {user, token:signToken(tanker)})
+    sendSuccess(res, {user, token:signToken(user)})
 })
 
 const me = asyncHandler(async(req,res)=>{

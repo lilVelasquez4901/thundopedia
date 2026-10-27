@@ -23,4 +23,7 @@ const RANKS = Object.freeze([
 const MAKES = Object.freeze([
     'Light_Tank', 'Medium_Tank', 'Heavy_Tank', 'Tank_Destroyer', 'SPAA'
 ])
-module.exports = {ROLES, ROLE_VALUES, AUTH, API_PREFIX, PAGINATION, NATIONS, RANKS, MAKES}
+const CREW_COUNT = Object.freeze([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+])
+module.exports = {ROLES, ROLE_VALUES, AUTH, API_PREFIX, PAGINATION, SORTABLE_FIELDS, NATIONS, RANKS, MAKES, CREW_COUNT}
