@@ -35,9 +35,10 @@ const getOne = asyncHandler(async(req,res)=>{
 
 // //POSTing a new, valid tank record
 const createVehicle = asyncHandler(async(req,res)=>{
+    console.log(req.user)
     const tank = await Tank.create({
         ...pickWritableFields(req.body),
-        ownerId: req.user._id
+        ownerId: req.user._id,
     })
     sendCreated(res, tank)
 })

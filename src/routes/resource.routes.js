@@ -13,9 +13,9 @@ router
 router
     .route('/:id')
         .get(resControl.getOne)
-        .put(resControl.replaceBlueprint)
-        .patch(resControl.replaceBlueprint) //Should function for both
-        .delete(resControl.destroyAsset)
+        .put(requireAuth, resControl.replaceBlueprint) //Authentication required because interacts with database permanently
+        .patch(requireAuth, resControl.replaceBlueprint) //Should function for both
+        .delete(requireAuth, resControl.destroyAsset)
 //Too specific to simplify like the rest above
 router
     .get('/make/:make', resControl.findMaker)

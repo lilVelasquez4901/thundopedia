@@ -40,10 +40,6 @@ const tankSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    id:{
-        type:Number,
-        required:true
-    },
     creator:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',

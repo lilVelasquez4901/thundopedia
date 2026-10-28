@@ -10,7 +10,7 @@ class ApiError extends Error {
     static badRequest(message = 'Bad Request', details = null){
         return new ApiError(400, message, details)
     }
-    static unauthorized(message = 'Unauthorized', details = null){
+    static unauthenticated(message = 'Unauthenticated', details = null){
         return new ApiError(401, message, details)
     }
     static unauthorized(message = 'Unauthorized', details = null){

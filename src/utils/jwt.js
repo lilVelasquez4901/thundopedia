@@ -8,11 +8,11 @@ function signToken(user){
     return jwt.sign(payload, jwtSecret, {expiresIn: jwtExpiresIn})
 }
 //Verifies and passes the token
-function verifyToken(user){
+function verifyToken(token){
     try {
         return jwt.verify(token, jwtSecret)
     } catch (error) {
-        throw ApiError.unauthorized('Invalid Token')
+        throw ApiError.unauthenticated('Invalid Token')
     }
 }
 module.exports = {signToken, verifyToken}

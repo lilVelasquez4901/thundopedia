@@ -18,7 +18,7 @@ const login = asyncHandler(async(req,res)=>{
         throw ApiError.badRequest('email and password are both required')
     const user = await User.findOne({email: String(email).toLowerCase().trim()}).select(`+password`)
     if(!user || !(await user.comparePassword(password))){
-        throw ApiError.unauthorized('Invalid email or password')
+        throw ApiError.unauthenticated('Invalid email or password')
     }
     sendSuccess(res, {user, token:signToken(user)})
 })
