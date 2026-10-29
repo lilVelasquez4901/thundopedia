@@ -26,10 +26,10 @@ function parseSort(sortParam){
         const name = descending ? field.slice(1) : field
 
         if(!SORTABLE_FIELDS.includes(name)){
-            throw ApiError.badrequest(`Cannot sort by ${name}. Sortable Fields: ${SORTABLE_FIELDS.join(', ')}`)
+            throw ApiError.badRequest(`Cannot sort by ${name}. Sortable Fields: ${SORTABLE_FIELDS.join(', ')}`)
         }
 
-        sort[name] = descendin ? -1 : 1
+        sort[name] = descending ? -1 : 1
     }
 
     return Object.keys(sort).length > 0 ? sort : {...DEFAULT_SORT}
@@ -51,42 +51,44 @@ function escapeRegex(text){
 
 function buildTankFilter(query={}){
     const filter = {}
+    if(query.nation && typeof(query.nation) === 'string'){ 
+        const cleared = query.nation.trim()
+        const match = NATIONS.find(n => n.toLowerCase() === cleared.toLowerCase());
+        if(!NATIONS.includes(match)){
 
-    if(query.nation){
-
-        if(!NATIONS.includes(query.nation)){
-
-            throw ApiError.badrequest(`'${query.nation}' is not a supported location. Valid: ${NATIONS.join(', ')}`)
+            throw ApiError.badRequest(`'${cleared}' is not a supported nation. Valid: ${NATIONS.join(', ')}`)
 
         }
-        filter.nation = query.nation
+        filter.nation = match
 
     }
-    if(query.rank){
+    if(query.rank && typeof(query.rank) === 'string'){ 
+        const cleared = query.rank.trim()
+        const match = RANKS.find(n => n.toLowerCase() === cleared.toLowerCase());
+        if(!RANKS.includes(match)){
 
-        if(!RANKS.includes(query.rank)){
-
-            throw ApiError.badrequest(`'${query.rank}' is not a supported location. Valid: ${RANKS.join(', ')}`)
+            throw ApiError.badRequest(`'${cleared}' is not a valid rank. Valid: ${RANKS.join(', ')}`)
 
         }
-        filter.rank = query.rank
+        filter.nation = match
 
     }
-    if(query.make){
+    if(query.make && typeof(query.make) === 'string'){ 
+        const cleared = query.make.trim()
+        const match = MAKES.find(n => n.toLowerCase() === cleared.toLowerCase());
+        if(!MAKES.includes(match)){
 
-        if(!MAKES.includes(query.make)){
-
-            throw ApiError.badrequest(`'${query.make}' is not a supported location. Valid: ${MAKES.join(', ')}`)
+            throw ApiError.badRequest(`'${cleared}' is not a valid make. Valid: ${MAKES.join(', ')}`)
 
         }
-        filter.make = query.make
+        filter.nation = match
 
     }
     if(query.crew_number){
 
         if(!CREW_COUNT.includes(query.crew_number)){
 
-            throw ApiError.badrequest(`'${query.crew_number}' is not a supported location. Valid: ${CREW_COUNT.join(', ')}`)
+            throw ApiError.badRequest(`'${query.crew_number}' is not a valid crew number. Valid: ${CREW_COUNT.join(', ')}`)
 
         }
         filter.crew_number = query.crew_number
@@ -94,7 +96,7 @@ function buildTankFilter(query={}){
     if(query.q){
 
         const pattern = new RegExp(escapeRegex(String(query.q).trim()), 'i')
-        filter.$or = [{nickname:pattern},{make:pattern}]
+        filter.$or = [{crew_number:pattern},{make:pattern},{nation:pattern},{rank:pattern}]
     }
     return filter
 }

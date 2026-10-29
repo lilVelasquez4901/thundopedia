@@ -1,0 +1,940 @@
+{
+  "info": {
+    "_postman_id": "b29306dc-39b2-42d7-adbb-7011cf4befa8",
+    "name": "thundopedia API - v2.1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57106562",
+    "_collection_link": "https://go.postman.co/collection/57106562-b29306dc-39b2-42d7-adbb-7011cf4befa8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Stage 1",
+      "item": [
+        {
+          "name": "Health",
+          "item": [
+            {
+              "name": "Health Check",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const body = pm.response.json(); pm.collectionVariables.set(\"resourceId\", body.data.id);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Resources - Happy Path",
+          "item": [
+            {
+              "name": "Create",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "By Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/6ab6df54e9cac053d2adfb9f",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "6ab6df54e9cac053d2adfb9f"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"creator\":\"amSmartie\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/52",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "52"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/53",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "53"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Resources - Error Cases",
+          "item": [
+            {
+              "name": "Nonexistant Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/65",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "65"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Malformed Id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Missing Field",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":false,\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/55",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "55"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Value",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":\"Ryoiki Tenkai\",\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Unknown Route",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/banana",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "banana"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "item": [
+        {
+          "name": "V2 - Account Shenanigans",
+          "item": [
+            {
+              "name": "Password Shortage",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Mina Ha\",\r\n    \"email\":\"futureviscount@nyork.com\",\r\n    \"password\":\"arinsux\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Register",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Arin Fairfax\",\r\n    \"email\":\"fairfaxheir@nyork.com\",\r\n    \"password\":\"MinaHaBothersMe\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Same Email",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Arin Fairfax\",\r\n    \"email\":\"fairfaxheir@nyork.com\",\r\n    \"password\":\"MinaHaBothersMe\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Valid Login",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Arin Fairfax\",\r\n    \"email\":\"fairfaxheir@nyork.com\",\r\n    \"password\":\"MinaHaBothersMe\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Incorrect Password",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Mina Ha\",\r\n    \"email\":\"futureviscount@nyork.com\",\r\n    \"password\":\"mydumbsignificantOtherArin\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Entry Token",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{arinToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Arin Fairfax\",\r\n    \"email\":\"fairfaxheir@nyork.com\",\r\n    \"password\":\"MinaHaBothersMe\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "No Entry Token",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Valid Record Creation",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{arinToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"T26E1-1 Super Pershing\",\r\n    \"custom\":false,\r\n    \"crew_number\":5,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"IV\",\r\n    \"make\":\"Heavy_Tank\",\r\n    \"isCar\":false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Faked OwnerId",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{arinToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"T26E1-1 Super Pershing\",\r\n    \"custom\":false,\r\n    \"crew_number\":5,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"IV\",\r\n    \"make\":\"Heavy_Tank\",\r\n    \"isCar\":false,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Missing Field",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{arinToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"custom\":false,\r\n    \"crew_number\":5,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"IV\",\r\n    \"make\":\"Heavy_Tank\",\r\n    \"isCar\":false,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Record Creation",
+              "request": {
+                "auth": {
+                  "type": "bearer"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"T26E1-1 Super Pershing\",\r\n    \"custom\":false,\r\n    \"crew_number\":5,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"IV\",\r\n    \"make\":\"Heavy_Tank\",\r\n    \"isCar\":false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "List Records",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":\"Ryoiki Tenkai\",\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Limited Records",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?page=2&limit=2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Capped Limit of Records",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?limit=9999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "9999"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Descending Order of Crew",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?sort=-crew_number",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "-crew_number"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Sort",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?sort=custom",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "custom"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Valid Sort",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":\"Ryoiki Tenkai\",\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?nation=Sweden",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "nation",
+                      "value": "Sweden"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "q Search",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"USA\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank Destroyer\",\r\n    \"isCar\":\"Ryoiki Tenkai\",\r\n    \"id\":53,\r\n    \"creator\":\"notbozo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks?q=Medium_Tank",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "Medium_Tank"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Read One",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update One",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{MinaToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"L3/33 CC\",\r\n    \"custom\":false,\r\n    \"crew_number\":2,\r\n    \"nation\":\"Italy\",\r\n    \"rank\":\"I\",\r\n    \"make\":\"Tank_Destroyer\",\r\n    \"isCar\":false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/6ae2733586fdd1784294147f",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "6ae2733586fdd1784294147f"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete One",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{vashToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/tanks/6ae2733586fdd17842941432",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tanks",
+                    "6ae2733586fdd17842941432"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "resourceId",
+      "value": ""
+    }
+  ]
+}

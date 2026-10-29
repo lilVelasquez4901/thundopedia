@@ -38,7 +38,7 @@ const createVehicle = asyncHandler(async(req,res)=>{
     console.log(req.user)
     const tank = await Tank.create({
         ...pickWritableFields(req.body),
-        ownerId: req.user._id,
+        creator: req.user._id,
     })
     sendCreated(res, tank)
 })
@@ -54,66 +54,66 @@ const replaceBlueprint = asyncHandler(async(req,res)=>{
 
 // //DELETEing an uploaded tank recorded
 const destroyAsset = asyncHandler(async(req,res)=>{
-    const ttank = await Tank.findByIdAndDelete(req.params.id)
+    const tank = await Tank.findByIdAndDelete(req.params.id)
     if(!tank) throw ApiError.notFound('Tank not Found')
     sendNoContent(res);
 })
 
 //Functions below shall be the service functions, combine these with the resService functions in routes.
-async function findMaker(req,res,next){
-    try{
-        const page = Number(req.query.page) || 1;
-        const pageSize = Number(req.query.pageSize) || 25;
-        const maker = req.params.make
-        const vehicles = await resService.pickByMake(maker, page, pageSize)
-        res.status(200).json(vehicles)        
-    }catch(error){
-        next(error)
-    }
-};
-async function findRank(req,res,next){
-    try {
-        const page = Number(req.query.page) || 1;
-        const pageSize = Number(req.query.pageSize) || 25;
-        const ranker = req.params.rank
-        const vehicles = await resService.pickByRank(ranker, page, pageSize)
-        res.status(200).json(vehicles)
-    } catch (error) {
-        next(error)
-    }
-}
-async function findCrew(req,res,next){
-    try {
-        const page = Number(req.query.page) || 1;
-        const pageSize = Number(req.query.pageSize) || 25;
-        const crew = req.params.crew_number
-        const vehicles = await resService.pickByCrew(crew, page, pageSize)
-        res.status(200).json(vehicles)
-    } catch (error) {
-        next(error)
-    }
-}
-async function findCustom (req,res,next){
-    try {
-        const page = Number(req.query.page) || 1;
-        const pageSize = Number(req.query.pageSize) || 25;
-        const bool = req.params.custom
-        const vehicles = await resService.filterByCustom(bool, page, pageSize)
-        res.status(200).json(vehicles)
-    } catch (error) {
-        next(error)
-    }
-}
-async function findNation(req,res,next){
-    try {
-        const page = Number(req.query.page) || 1;
-        const pageSize = Number(req.query.pageSize) || 25;
-        const country = req.params.nation
-        const vehicles = await resService.pickByNation(country, page, pageSize)
-        res.status(200).json(vehicles)}
-       catch (error) {
-        next(error)
-    }} 
+// async function findMaker(req,res,next){
+//     try{
+//         const page = Number(req.query.page) || 1;
+//         const pageSize = Number(req.query.pageSize) || 25;
+//         const maker = req.params.make
+//         const vehicles = await resService.pickByMake(maker, page, pageSize)
+//         res.status(200).json(vehicles)        
+//     }catch(error){
+//         next(error)
+//     }
+// };
+// async function findRank(req,res,next){
+//     try {
+//         const page = Number(req.query.page) || 1;
+//         const pageSize = Number(req.query.pageSize) || 25;
+//         const ranker = req.params.rank
+//         const vehicles = await resService.pickByRank(ranker, page, pageSize)
+//         res.status(200).json(vehicles)
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+// async function findCrew(req,res,next){
+//     try {
+//         const page = Number(req.query.page) || 1;
+//         const pageSize = Number(req.query.pageSize) || 25;
+//         const crew = req.params.crew_number
+//         const vehicles = await resService.pickByCrew(crew, page, pageSize)
+//         res.status(200).json(vehicles)
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+// async function findCustom (req,res,next){
+//     try {
+//         const page = Number(req.query.page) || 1;
+//         const pageSize = Number(req.query.pageSize) || 25;
+//         const bool = req.params.custom
+//         const vehicles = await resService.filterByCustom(bool, page, pageSize)
+//         res.status(200).json(vehicles)
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+// async function findNation(req,res,next){
+//     try {
+//         const page = Number(req.query.page) || 1;
+//         const pageSize = Number(req.query.pageSize) || 25;
+//         const country = req.params.nation
+//         const vehicles = await resService.pickByNation(country, page, pageSize)
+//         res.status(200).json(vehicles)}
+//        catch (error) {
+//         next(error)
+//     }} 
 async function findCars (req,res,next){
     try {
         const page = Number(req.query.page) || 1;
@@ -136,4 +136,4 @@ async function findCreator (req,res,next){
         next(error)
     }
 }
-module.exports = {getAll, getOne, createVehicle, replaceBlueprint, destroyAsset, findMaker, findRank, findCrew, findCustom, findCars, findCreator, findNation}
+module.exports = {getAll, getOne, createVehicle, replaceBlueprint, destroyAsset, findCars, findCreator}

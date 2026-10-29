@@ -18,11 +18,11 @@ router
         .delete(requireAuth, resControl.destroyAsset)
 //Too specific to simplify like the rest above
 router
-    .get('/make/:make', resControl.findMaker)
-    .get('/rank/:rank', resControl.findRank)
-    .get('/crew/:crew_number', resControl.findCrew)
-    .get('/custom/:custom', resControl.findCustom)
-    .get('/nation/:nation', resControl.findNation)
+    // .get('/make/:make', resControl.findMaker)
+    // .get('/rank/:rank', resControl.findRank)
+    // .get('/crew/:crew_number', resControl.findCrew)
+    // .get('/custom/:custom', resControl.findCustom)
+    // .get('/nation/:nation', resControl.findNation)
     .get('/cars/:isCar', resControl.findCars)
     .get('/creator/:creator', resControl.findCreator) 
 
